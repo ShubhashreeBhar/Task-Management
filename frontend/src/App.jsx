@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Outlet,Routes , Route, useNavigate } from 'react-router-dom'
+import { Outlet,Routes , Route, useNavigate, Navigate } from 'react-router-dom'
 import Layout  from './components/Layout';
- 
+import Dashboard from './pages/Dashboard';
 import Login from './components/Login';
 import SignUp from './components/Signup';
+import PendingPage from './pages/PendingPage';
+import CompletePage from './pages/CompletePage';
 
 const App = () => {
   const navigate=useNavigate();
@@ -37,11 +39,11 @@ const App = () => {
     setCurrentUser(null);
     navigate('/login',{replace:true})
   }
-const ProtectedLayout=()=>{
+const ProtectedLayout=()=>(
     <Layout user={currentUser} onLogout={handleLogout}>
       <Outlet/>
     </Layout>
-}
+)
 
   return (
    <Routes>
@@ -55,7 +57,14 @@ const ProtectedLayout=()=>{
       <SignUp onSubmit={handleAuthSubmit} onSwitchMode ={()=>navigate('/login')}/>
     </div>}/>
 
-    <Route path='/' element={<Layout/>}/>
+      <Route element={currentUser ? <ProtectedLayout/>:
+      <Navigate to='/login' replace/>}>
+      <Route path='/' element={<Dashboard/>}/>
+      <Route path='/pending' element={<PendingPage/>}/>
+      <Route path='/complete' element={<CompletePage/>}/>
+      </Route>
+    
+    <Route path='*' element={<Navigate to={currentUser ? '/':'/login'}replace/>}/>
 
    </Routes>
   )
