@@ -6,6 +6,7 @@ import Login from './components/Login';
 import SignUp from './components/Signup';
 import PendingPage from './pages/PendingPage';
 import CompletePage from './pages/CompletePage';
+import Profile from './components/Profile';
 
 const App = () => {
   const navigate=useNavigate();
@@ -62,12 +63,13 @@ const ProtectedLayout=()=>(
       <Route path='/' element={<Dashboard/>}/>
       <Route path='/pending' element={<PendingPage/>}/>
       <Route path='/complete' element={<CompletePage/>}/>
+      <Route path='/profile' element={<Profile user={currentUser} setCurrentUser={setCurrentUser} onLogout={handleLogout}/>}/>
       </Route>
     
-    <Route path='*' element={<Navigate to={currentUser ? '/':'/login'}replace/>}/>
+    <Route path='*' element={<Navigate to={currentUser ? '/':'/login'} replace />} />
 
    </Routes>
-  )
+  );
 }
 
-export default App
+export default App;
