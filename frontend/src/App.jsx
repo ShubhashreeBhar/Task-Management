@@ -42,7 +42,9 @@ const App = () => {
   }
 const ProtectedLayout=()=>(
     <Layout user={currentUser} onLogout={handleLogout}>
-      <Outlet/>
+      <Outlet context={{
+      handleLogout, 
+    }} />
     </Layout>
 )
 
@@ -60,7 +62,7 @@ const ProtectedLayout=()=>(
 
       <Route element={currentUser ? <ProtectedLayout/>:
       <Navigate to='/login' replace/>}>
-      <Route path='/' element={<Dashboard/>}/>
+      <Route path='/' element={<Dashboard user={currentUser} onLogout={handleLogout} />} />
       <Route path='/pending' element={<PendingPage/>}/>
       <Route path='/complete' element={<CompletePage/>}/>
       <Route path='/profile' element={<Profile user={currentUser} setCurrentUser={setCurrentUser} onLogout={handleLogout}/>}/>
