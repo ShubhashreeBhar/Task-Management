@@ -6,6 +6,7 @@ import { useMemo } from 'react'
 import {useOutletContext} from 'react-router-dom';
 import TaskItem from '../components/TaskItem'
 import TaskModal from '../components/TaskModal'
+import {isToday} from 'date-fns'
 
 const API_BASE='http://localhost:4000/api/tasks'
 const Dashboard = () => {
@@ -28,10 +29,14 @@ const Dashboard = () => {
 
   //Filter Tasks
 
-  const filteredTasks=useMemo(()=>tasks.filter(task =>{
-    const dueDate=new Date(task.dueDate)
+  const filteredTasks=useMemo(()=>{
     const today=new Date()
-    const nextWeek=new Date (today);nextWeek.setDate(today.getDate()+7)
+    const nextWeek=new Date (today);
+    nextWeek.setDate(today.getDate()+7)
+
+    let filtered = tasks.filter(task => {
+    const dueDate = task.dueDate ? new Date(task.dueDate) : null;
+
     switch(filter){
       case"today" :
           return dueDate.toDateString()===today.toDateString()
@@ -44,7 +49,29 @@ const Dashboard = () => {
       default:
          return true
     }
-  }),[tasks,filter])
+  });
+  if (filter === "all") {
+    filtered.sort((a, b) => {
+      const aDue = a.dueDate ? new Date(a.dueDate) : null;
+      const bDue = b.dueDate ? new Date(b.dueDate) : null;
+
+      const aIsToday = aDue && isToday(aDue);
+      const bIsToday = bDue && isToday(bDue);
+
+      if (aIsToday && !bIsToday) return -1;
+      if (!aIsToday && bIsToday) return 1;
+
+      // Optional: sort remaining by date ascending
+      if (aDue && bDue) return aDue - bDue;
+      if (aDue) return -1;
+      if (bDue) return 1;
+
+      return 0;
+    });
+  }
+
+  return filtered;
+}, [tasks, filter]);
 
   //SAVING TASKS
   const handleTaskSave=useCallback(async(taskData)=>{
@@ -66,7 +93,7 @@ const Dashboard = () => {
       <div className={HEADER}>
       <div className='min-w-0'>
         <h1 className='text-xl md:text-3xl font-bold text-gray-800 items-center flex gap-2'>
-            <HomeIcon className='text-purple-500 w-5 h-5 md:h-6 shrink-0'/>
+            <HomeIcon className='text-sky-500 w-5 h-5 md:h-6 shrink-0'/>
             <span className='truncate'>Task Overview</span>
           </h1>
           <p className='text-sm text-gray-500 mt-1 ml-7 truncate'>Manage your tasks efficiently</p>
@@ -81,7 +108,7 @@ const Dashboard = () => {
       {/*STATS*/}
       <div className={STATS_GRID}>
         {STATS.map(({
-          key,label,icon:Icon,iconColor,borderColor="border-purple-100",
+          key,label,icon:Icon,iconColor,borderColor="border-sky-100",
           valueKey,textColor,gradient
         })=>(
           <div key={key} className={`${STAT_CARD} ${borderColor}`}>
@@ -92,7 +119,7 @@ const Dashboard = () => {
 
               <div className='min-w-0'>
                 <p className={`${VALUE_CLASS} ${gradient ?
-                  "bg-gradient-to-r from-fuchsia-500 to-purple-600 bg-clip-text text-transparent"
+                  "bg-gradient-to-r from-sky-400 to-sky-800 bg-clip-text text-transparent"
                   :textColor}`}>{stats[valueKey]}</p>
                   <p className={LABEL_CLASS}>{label}</p>
               </div>
@@ -105,7 +132,7 @@ const Dashboard = () => {
      <div className='space-y-6'>
       <div className={FILTER_WRAPPER}>
         <div className='flex items-center gap-2 min-w-0'>
-          <Filter className='w-5 h-5 text-purple-500 shrink-0'/>
+          <Filter className='w-5 h-5 text-sky-500 shrink-0'/>
             <h2 className='text-base md:text-lg font-semibold text-gray-800 truncate'>
               {FILTER_LABELS[filter]}
             </h2>
@@ -132,7 +159,7 @@ const Dashboard = () => {
         {filteredTasks.length==0 ? (
           <div className={EMPTY_STATE.wrapper}>
             <div className={EMPTY_STATE.iconWrapper}>
-            <CalendarIcon className='w-8 h-8 text-purple-500'/>
+            <CalendarIcon className='w-8 h-8 text-sky-500'/>
             </div>
             <h3 className='text-lg font-semibold text-gray-800 mb-2'>
                No task found!
@@ -160,9 +187,9 @@ const Dashboard = () => {
       {/* Add task desktop*/}
       <div 
       onClick={()=>setShowModal(true)}
-      className='hidden md:flex items-center justify-center p-4 border-2 border-dashed border-purple-200
-      rounded-xl hover:border-purple-400 bg-purple-50/50 cursor-pointer transition-colors'>
-        <Plus className='w-5 h-5 text-purple-500 mr-2'/>
+      className='hidden md:flex items-center justify-center p-4 border-2 border-dashed border-sky-200
+      rounded-xl hover:border-sky-400 bg-sky-50/50 cursor-pointer transition-colors'>
+        <Plus className='w-5 h-5 text-sky-500 mr-2'/>
         <span className='text-gray-600 font-medium'>Add new task</span>
       </div>
      </div>

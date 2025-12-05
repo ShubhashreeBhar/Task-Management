@@ -85,16 +85,16 @@ const TaskModal = ({isOpen, onClose,onSave, onLogout,taskToEdit}) => {
 
   return (
     <div className='fixed inset-0 backdrop-blur-sm bg-black/20 z-50 flex items-center justify-center p-4'>
-        <div className='bg-white border border-purple-100 rounded-2xl max-w-md w-full
+        <div className='bg-white border border-sky-100 rounded-2xl max-w-md w-full
         shadow-lg relative p-6 animate-fadeIn'>
         <div className='flex justify-center items-center mb-6'>
             <h2 className='text-2xl font-bold text-gray-800 flex items-center gap-2'>
-                {taskData.id? <Save className='text-purple-500 w-5 h-5'/> :
-                <PlusCircle className='text-purple-500 w-5 h-5'/>}
+                {taskData.id? <Save className='text-sky-500 w-5 h-5'/> :
+                <PlusCircle className='text-sky-500 w-5 h-5'/>}
                 {taskData.id?'Edit Task': 'Create New Task'}
             </h2>
-            <button onClick={onClose} className='p-2 hover:bg-purple-100 rounded-lg
-            transition-colors text-gray-500 hover:text-purple-700'>
+            <button onClick={onClose} className='absolute top-2 right-2 p-2 hover:bg-sky-100 rounded-lg
+               transition-colors text-gray-500 hover:text-sky-700'>
                     <X className='w-5 h-5'/>
             </button>
         </div>
@@ -106,8 +106,8 @@ const TaskModal = ({isOpen, onClose,onSave, onLogout,taskToEdit}) => {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>
                     Task Title
                 </label>
-                <div className='flex items-center border border-purple-100 rounded-lg px-3 py-2.5
-                focus-within:ring-2 focus-within:ring-purple-500 focus-within:border-purple-500
+                <div className='flex items-center border border-sky-100 rounded-lg px-3 py-2.5
+                focus-within:ring-2 focus-within:ring-sky-500 focus-within:border-sky-500
                 transition-all duration-200'>
                     <input type="text" name='title' required value={taskData.title}
                     onChange={handleChange} className='w-full focus:outline-none text-sm'
@@ -116,7 +116,7 @@ const TaskModal = ({isOpen, onClose,onSave, onLogout,taskToEdit}) => {
             </div>
             <div>
                 <label className='flex text-sm gap-1 items-center font-medium text-gray-700 mb-1'>
-                   <AlignLeft className='w-4 h-4 text-purple-500'/> Description
+                   <AlignLeft className='w-4 h-4 text-sky-500'/> Description
                 </label>
                 <textarea name="description"  rows="3"
                     onChange={handleChange} value={taskData.description}
@@ -125,7 +125,7 @@ const TaskModal = ({isOpen, onClose,onSave, onLogout,taskToEdit}) => {
             <div className='grid grid-cols-2 gap-4'>
                 <div>
                     <label className='flex items-center gap-1 text-sm font-medium text-gray-700 mb-1'>
-                        <Flag className='w-4 h-4 text-purple-500'/> Priority
+                        <Flag className='w-4 h-4 text-sky-500'/> Priority
                     </label>
                     <select name='priority' value={taskData.priority} onChange={handleChange}
                     className={`${baseControlClasses} ${priorityStyles[taskData.priority]}`}>
@@ -136,7 +136,7 @@ const TaskModal = ({isOpen, onClose,onSave, onLogout,taskToEdit}) => {
                 </div>
                 <div>
                     <label className='flex items-center gap-1 text-sm font-medium text-gray-700 mb-1'>
-                        <Calendar className='w-4 h-4 text-purple-500'/> Due Date
+                        <Calendar className='w-4 h-4 text-sky-500'/> Due Date
                     </label>
                     <input type="date" name='dueDate' required min={today} value={taskData.dueDate}
                         onChange={handleChange} className={baseControlClasses}/>
@@ -144,21 +144,21 @@ const TaskModal = ({isOpen, onClose,onSave, onLogout,taskToEdit}) => {
             </div>
             <div>
                 <label className='flex items-center gap-1 text-sm font-medium text-gray-700 mb-1'>
-                        <CheckCircle className='w-4 h-4 text-purple-500'/> Status
+                        <CheckCircle className='w-4 h-4 text-sky-500'/> Status
                 </label>
                 <div className='flex gap-4'>
-                    {[{val:'val',label:'Completed'},{val:'No',label:'In Progress'}].map(({val,label})=>(
+                    {[{val:'Yes',label:'Completed'},{val:'No',label:'In Progress'}].map(({val,label})=>(
                         <label key={val} className='flex items-center'>
                             <input type='radio' name='completed' value={val} checked={taskData.completed===val}
-                                onChange={handleChange} className='h-4 w-4 text-purple-600
-                                focus:ring-purple-500 border-gray-300 rounded'/>
+                                onChange={handleChange} className='h-4 w-4 text-sky-600
+                                focus:ring-sky-500 border-gray-300 rounded'/>
                                 <span className='ml-2 text-sm text-gray-700 '>{label}</span>
                         </label>
                     ))}
                 </div>
             </div>
             <button type='submit' disabled={loading}
-            className='w-full bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white
+            className='w-full bg-gradient-to-r from-sky-400 to-sky-800 text-white
             font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50
             hover:shadow-md transition duration-200'>
                 {loading ?'Saving...':(taskData.id? <>

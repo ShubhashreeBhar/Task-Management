@@ -16,7 +16,7 @@ const FIELDS = [
 const MESSAGE_SUCCESS = "text-green-600 bg-green-100 p-2 rounded text-sm mb-4";
 const MESSAGE_ERROR = "text-red-600 bg-red-100 p-2 rounded text-sm mb-4";
 
-const BUTTONCLASSES = "w-full bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 flex items-center justify-center space-x-2";
+const BUTTONCLASSES = "w-full bg-sky-600 text-white py-2 px-4 rounded hover:bg-sky-700 flex items-center justify-center space-x-2";
 
 const SignUp = ({onSwitchMode}) => {
 
@@ -45,16 +45,16 @@ const SignUp = ({onSwitchMode}) => {
       }
 
     return (
-        <div className=' max-w-md w-full bg-white shadow-1g border border-purple-100 rounded-x1 p-8'>
+        <div className=' max-w-md w-full bg-white shadow-1g border border-sky-100 rounded-x1 p-8'>
           <div className=' mb-6 text-center'>
-            <div className=' w-16 h-16 bg-gradient-to-br from-fuchsia-500 to-purple-600 rounded-full
+            <div className=' w-16 h-16 bg-gradient-to-br from-sky-300 to-sky-800 rounded-full
               mx-auto flex items-center justify-center mb-4'>
                 <UserPlus className='w-8 h-8text-white' />
             </div>
             <h2 className='text-2x1 font-bold text-gray-800'>
               Create Account
             </h2>
-            <p className='text-gray-500 text-sm mt-1'>Join TaskFlow to manage your tasks</p>
+            <p className='text-gray-500 text-sm mt-1'>Join TaskTrack to manage your tasks</p>
             </div>
 
           {message.text &&(
@@ -67,7 +67,7 @@ const SignUp = ({onSwitchMode}) => {
 
           {FIELDS.map(({ name, type, placeholder, icon: Icon }) => (
             <div key={name} className={Inputwrapper}>
-            <Icon className='text-purple-500 w-5 h-5 mr-2' />
+            <Icon className='text-sky-500 w-5 h-5 mr-2' />
 
             <input type={type} placeholder={placeholder} value={formData[name]}
               onChange={(e) => setFormData({...formData, [name]: e.target.value })}
@@ -83,7 +83,7 @@ const SignUp = ({onSwitchMode}) => {
     <p className='text-center text-sm text-gray-600 mt-6'>
 
       Alrady have an account?{' '}
-      <button onClick={onSwitchMode} className='text-purple-600 hover:text-purple-700 hover:underline
+      <button onClick={onSwitchMode} className='text-sky-600 hover:text-sky-700 hover:underline
       font-medium transition-colors'>
           Login
       </button>

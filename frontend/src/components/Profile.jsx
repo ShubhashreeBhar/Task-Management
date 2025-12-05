@@ -85,7 +85,7 @@ return (
       </button>
 
       <div className='flex items-center gap-4 mb-8'>
-        <div className='w-16 h-16 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold shadow-md'>
+        <div className='w-16 h-16 rounded-full bg-gradient-to-br from-sky-300 to-sky-700 flex items-center justify-center text-white text-2xl font-bold shadow-md'>
           {profile.name ? profile.name[0].toUpperCase() : 'U'}
         </div>
       </div>
@@ -97,14 +97,14 @@ return (
       <div className='grid md:grid-cols-2 gap-8 mt-8'>
         <section className={SECTION_WRAPPER}>
           <div className='flex items-center gap-2 mb-6'>
-            <UserCircle className=' text-purple-500 w-5 h-5' />
+            <UserCircle className=' text-sky-500 w-5 h-5' />
             <h2 className='text-xl font-semibold text-gray-800'>Personal Information</h2>
           </div>
 
           <form onSubmit={saveProfile} className='space-y-4'>
             {personalFields.map(({ name, type, placeholder, icon: Icon }) => (
               <div key={name} className={INPUT_WRAPPER}>
-                <Icon className='text-purple-500 w-5 h-5 mr-2' />
+                <Icon className='text-sky-500 w-5 h-5 mr-2' />
                 <input
                   type={type}
                   placeholder={placeholder}
@@ -123,14 +123,14 @@ return (
 
         <section className={SECTION_WRAPPER}>
           <div className='flex items-center gap-2 mb-6'>
-            <UserCircle className='text-purple-500 w-5 h-5' />
+            <UserCircle className='text-sky-500 w-5 h-5' />
             <h2 className='text-xl font-semibold text-gray-800'>Security</h2>
           </div>
 
           <form onSubmit={changePassword} className='space-y-4'>
             {securityFields.map(({ name, placeholder }) => (
               <div key={name} className={INPUT_WRAPPER}>
-                <Lock className='text-purple-500 w-5 h-5 mr-2' />
+                <Lock className='text-sky-500 w-5 h-5 mr-2' />
                 <input
                   type='password'
                   placeholder={placeholder}
@@ -145,7 +145,7 @@ return (
               <Shield className='w-4 h-4' />Change Password
             </button>
 
-            <div className='mt-8 pt-6 border-t border-purple-100'>
+            <div className='mt-8 pt-6 border-t border-sky-100'>
               <h3 className='text-red-600 font-semibold flex items-center gap-2'>
                 <LogOut className='w-4 h-4' />Danger Zone
               </h3>

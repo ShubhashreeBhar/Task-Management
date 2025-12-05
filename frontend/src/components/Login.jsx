@@ -82,27 +82,27 @@ const Login = ({onSubmit,onSwitchMode}) => {
 ]
 
   return (
-    <div className ='max-w-md bg-white w-full shadow-lg border border-purple-100 rounded-xl p-8'>
+    <div className ='max-w-md bg-white w-full shadow-lg border border-sky-100 rounded-xl p-8'>
       <ToastContainer position='top-center' autoClose={3000} hideProgressBar/>
       <div className='mb-6 text-center'>
-        <div className='w-16 h-16 bg-gradient-to-br from-fuchsia-500 to-purple-600 rounded-full
+        <div className='w-16 h-16 bg-gradient-to-br from-sky-300 to-sky-800 rounded-full
         mx-auto flex items-center justify-center mb-4'>
           <LogIn className='w-8 h-8 text-white'/>
         </div>
         <h2 className='text-2xl font-bold text-gray-800'>Welcome Back</h2>
-        <p className='text-gray-500 text-sm mt-1'>Sign in to continue to TaskFlow</p>
+        <p className='text-gray-500 text-sm mt-1'>Sign in to continue to TaskTrack</p>
       </div>
       <form onSubmit={handleSubmit} className='space-y-4'>
         {fields.map(({name,type,placeholder,icon:Icon,isPassword})=>(
           <div key={name} className={INPUTWRAPPER}>
-            <Icon className='text-purple-500 w-5 h-5 mr-2'/>
+            <Icon className='text-sky-500 w-5 h-5 mr-2'/>
             <input type={type} placeholder={placeholder} value={formData[name]}
               onChange={(e)=> setFormData({...formData,[name]: e.target.value})}
               className='w-full focus:outline-none text-sm text-gray-700' required/>
 
               {isPassword && (
                 <button type='button' onClick={()=>setShowPassword((prev)=>!prev)}
-                className='ml-2 text-gray-500 hover:text-purple-500 transition-colors'>
+                className='ml-2 text-gray-500 hover:text-sky-500 transition-colors'>
                   {showPassword ? <EyeOff className='w-5 h-5'/>:<Eye className='w-5 h-5'/>}
                 </button>
               )}
@@ -111,7 +111,7 @@ const Login = ({onSubmit,onSwitchMode}) => {
         )}
         <div className='flex items-center'>
           <input type="checkbox" id='rememberMe' checked={rememberMe} onChange={()=>setRememberMe(!rememberMe)}
-          className='h-4 w-4 text-purple-500 focus:ring-purple-400 border-gray-300 rounded'
+          className='h-4 w-4 text-sky-500 focus:ring-sky-400 border-gray-300 rounded'
           required/>
           <label htmlFor='rememberMe'
               className='ml-2 block text-sm text-gray '>Remember Me</label>
@@ -132,7 +132,7 @@ const Login = ({onSubmit,onSwitchMode}) => {
 
       <p className='text-center text-sm text-gray-600 mt-6'>
         Don't have an account?{' '}
-        <button type='button' className='text-purple-600 hover:text-purple-700 hover:underline
+        <button type='button' className='text-sky-600 hover:text-sky-700 hover:underline
         font-medium transition-colors' onClick={handleSwitchMode}>
         Sign Up
         </button>
