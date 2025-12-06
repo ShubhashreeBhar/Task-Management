@@ -3,7 +3,7 @@ import { Outlet,Routes , Route, useNavigate, Navigate } from 'react-router-dom'
 import Layout  from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Login from './components/Login';
-import SignUp from './components/Signup';
+import SignUp from './components/SignUp';
 import PendingPage from './pages/PendingPage';
 import CompletePage from './pages/CompletePage';
 import Profile from './components/Profile';
@@ -57,7 +57,7 @@ const ProtectedLayout=()=>(
 
     <Route path='/signup' element={<div className='fixed inset-0 bg-black bg-opacity-50 flex items-center
     justify-center'>
-      <SignUp onSubmit={handleAuthSubmit} onSwitchMode ={()=>navigate('/login')}/>
+      <SignUp onSwitchMode={() => navigate('/login')} onSubmit={handleAuthSubmit} />
     </div>}/>
 
       <Route element={currentUser ? <ProtectedLayout/>:
