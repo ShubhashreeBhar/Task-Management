@@ -67,7 +67,7 @@ const Layout = ({onLogout ,user}) => {
         <div className ='p-2 sm:p-3 rounded-xl bg-white shadow-sm border border-sky-100 hover:shadow-md transition-all
         duration-300 hover:border-sky-100 group'>
             <div className='flex items-center gap-2'>
-                <div className='p-1.5 rounded-lg bg-gradient-to-br from-fuchsia-500/10 to-sky-500/10 group-hover:from-sky-400
+                <div className='p-1.5 rounded-lg bg-gradient-to-br from-sky-500/10 to-sky-500/10 group-hover:from-sky-400
                 group-hover:to-sky-500/20'>
                     {icon}
                 </div>
@@ -183,7 +183,7 @@ if(error) return (
                                 </div>
                                 <span className={`px-2 py-1 text-xs rounded-full shrink-e ml-2
                                 %${task.completed ?`bg-green-100 text-green-700`
-                                    :`bg-fuchsia-100 text-sky-700 `}`}>
+                                    :`bg-sky-100 text-sky-700 `}`}>
                                     {task.completed ? "Done":"Pending"}
                                 </span>
                              </div>   
