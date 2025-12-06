@@ -47,7 +47,7 @@ const SignUp = ({onSwitchMode}) => {
     return (
         <div className=' max-w-md w-full bg-white shadow-1g border border-sky-100 rounded-x1 p-8'>
           <div className=' mb-6 text-center'>
-            <div className=' w-16 h-16 bg-gradient-to-br from-sky-300 to-sky-800 rounded-full
+            <div className=' w-16 h-16 bg-linear-to-br from-sky-300 to-sky-800 rounded-full
               mx-auto flex items-center justify-center mb-4'>
                 <UserPlus className='w-8 h-8text-white' />
             </div>
