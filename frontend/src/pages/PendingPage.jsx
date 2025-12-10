@@ -5,7 +5,7 @@ import { useOutletContext } from 'react-router-dom'
 import TaskItem from '../components/TaskItem'
 import TaskModal from '../components/TaskModal'
 
-const API_BASE='https://task-management-wgjr.onrender.com/'
+const API_BASE='https://task-management-wgjr.onrender.com/api/tasks'
 
 const PendingPage = () => {
 
