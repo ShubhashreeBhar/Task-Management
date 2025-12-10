@@ -8,7 +8,7 @@ import TaskItem from '../components/TaskItem'
 import TaskModal from '../components/TaskModal'
 import {isToday} from 'date-fns'
 
-const API_BASE='http://localhost:4000/api/tasks'
+const API_BASE='https://task-management-wgjr.onrender.com/'
 const Dashboard = () => {
 
   const {tasks=[],refreshTasks,handleLogout}=useOutletContext()

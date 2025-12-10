@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { baseControlClasses, DEFAULT_TASK, priorityStyles } from '../assets/dummy'
 import { AlignLeft, Calendar, CheckCircle, Flag, PlusCircle,Save,X } from 'lucide-react'
 
-const API_BASE='http://localhost:4000/api/tasks'
+const API_BASE='https://task-management-wgjr.onrender.com/'
 
 
 const TaskModal = ({isOpen, onClose,onSave, onLogout,taskToEdit}) => {

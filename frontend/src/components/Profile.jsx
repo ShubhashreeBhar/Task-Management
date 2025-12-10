@@ -5,7 +5,7 @@ import { ChevronLeft, LogOut, Shield, UserCircle,Save,Lock } from 'lucide-react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const API_URL='http://localhost:4000'
+const API_URL='https://task-management-wgjr.onrender.com/'
 
 const Profile=({setCurrentUser,onLogout})=>{
 
