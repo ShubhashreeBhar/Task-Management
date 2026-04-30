@@ -1,0 +1,113 @@
+import { UserPlus, User, Mail, Lock } from 'lucide-react'
+import React, { useState } from 'react'
+import { BUTTON_CLASSES, Inputwrapper } from '../assets/dummy'
+import axios from 'axios'
+import API_BASE_URL from '../config'
+
+const API_URL = API_BASE_URL
+const INITIAL_FORM = { name: "", email: "", password: "" }
+
+const FIELDS = [
+  { name: 'name', type: 'text', placeholder: 'Your Name', icon: User },
+  { name: 'email', type: 'email', placeholder: 'Email Address', icon: Mail },
+  { name: 'password', type: 'password', placeholder: 'Password', icon: Lock },
+];
+
+const MESSAGE_SUCCESS = "text-green-600 bg-green-100 p-2 rounded text-sm mb-4";
+const MESSAGE_ERROR = "text-red-600 bg-red-100 p-2 rounded text-sm mb-4";
+
+const SignUp = ({ onSwitchMode, onSubmit }) => {
+
+  const [formData, setFormData] = useState(INITIAL_FORM);
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState({ text: "", type: "" })
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    setMessage({ text: "", type: "" })
+
+    try {
+      const { data } = await axios.post(`${API_URL}/api/user/register`, formData)
+      console.log("Signup Successful", data)
+
+      setMessage({ text: "Registration Successful!", type: "success" })
+
+      localStorage.setItem("token", data.token)
+      if (data.user && data.user.id) {
+          localStorage.setItem("userId", data.user.id)
+      }
+
+      if (onSubmit) {
+        onSubmit({ 
+          email: formData.email, 
+          name: formData.name,
+          token: data.token,
+          userId: data.user?.id
+        });
+      }
+
+      setFormData(INITIAL_FORM)
+
+      // Hard redirect to ensure fresh state pickup
+      window.location.href = '/'
+    }
+    catch (err) {
+      console.error("Signup error:", err)
+      setMessage({ text: err.response?.data?.message || "An error occurred.", type: "error" })
+    }
+    finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div className='max-w-md w-full bg-white shadow-lg border border-sky-100 rounded-xl p-8'>
+      <div className='mb-6 text-center'>
+        <div className='w-16 h-16 bg-gradient-to-br from-sky-300 to-sky-800 rounded-full mx-auto flex items-center justify-center mb-4'>
+          <UserPlus className='w-8 h-8 text-white' />
+        </div>
+        <h2 className='text-2xl font-bold text-gray-800'>Create Account</h2>
+        <p className='text-gray-500 text-sm mt-1'>Join TaskTrack to manage your tasks</p>
+      </div>
+
+      {message.text && (
+        <div className={message.type === 'success' ? MESSAGE_SUCCESS : MESSAGE_ERROR}>
+          {message.text}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className='space-y-4'>
+        {FIELDS.map(({ name, type, placeholder, icon: Icon }) => (
+          <div key={name} className={Inputwrapper}>
+            <Icon className='text-sky-500 w-5 h-5 mr-2' />
+            <input
+              type={type}
+              placeholder={placeholder}
+              value={formData[name]}
+              onChange={(e) => setFormData({ ...formData, [name]: e.target.value })}
+              className='w-full outline-none text-sm text-gray-700'
+              required
+            />
+          </div>
+        ))}
+
+        <button type='submit' className={BUTTON_CLASSES} disabled={loading}>
+          {loading ? "Signing Up..." : <><UserPlus className='w-4 h-4' /> Sign Up</>}
+        </button>
+      </form>
+
+      <p className='text-center text-sm text-gray-600 mt-6'>
+        Already have an account?{" "}
+        <button
+          onClick={onSwitchMode}
+          className='text-sky-600 hover:text-sky-700 hover:underline font-medium transition-colors'
+        >
+          Login
+        </button>
+      </p>
+    </div>
+  )
+}
+
+export default SignUp
