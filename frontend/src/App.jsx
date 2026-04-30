@@ -25,7 +25,7 @@ const App = () => {
   },[currentUser])
 
   const handleAuthSubmit = data => {
-    // 1. Synchronous localStorage writes FIRST
+    // Persist auth credentials
     if (data.token) {
         localStorage.setItem('token', data.token);
     }
@@ -33,7 +33,7 @@ const App = () => {
         localStorage.setItem('userId', data.userId || data.id);
     }
 
-    // 2. Build user object and persist
+    // Build user profile
     const user = {
       email: data.email,
       name: data.name || 'User',
@@ -41,10 +41,9 @@ const App = () => {
     }
     localStorage.setItem('currentUser', JSON.stringify(user));
 
-    // 3. State update (may not complete before redirect)
+
     setCurrentUser(user);
 
-    // 4. Hard redirect — forces full page reload with fresh localStorage
     window.location.href = '/';
   }
 

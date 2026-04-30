@@ -4,7 +4,7 @@ import {createTask,deleteTask, getTaskById,getTasks,updateTask} from '../control
 
 const taskRouter =express.Router();
 
-// Specific literal routes MUST come before /:id wildcard
+// List and create tasks
 taskRouter.route('/gp')
     .get(authmiddleware,getTasks)
     .post(authmiddleware,createTask);

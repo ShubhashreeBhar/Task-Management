@@ -7,20 +7,21 @@ import taskRouter from "./routes/taskRoute.js";
 const app= express ();
 const port=process.env.PORT || 4000;
 
-// Build allowed origins list from env var (comma-separated) or fall back to localhost
+// Allowed CORS origins
 const allowedOrigins = process.env.CORS_ORIGIN
     ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
-    : ['http://localhost:5173'];
+    : ['http://localhost:5173', 'http://localhost:5174'];
 
 //MIDDLEWARE
 app.use(cors({
     origin: (origin, callback) => {
-        // Allow requests with no origin (e.g. curl, Postman) or from an allowed origin
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error(`CORS policy: origin ${origin} not allowed`));
-        }
+        if (!origin) return callback(null, true);
+
+        if (origin.startsWith('http://localhost:')) return callback(null, true);
+
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+
+        callback(new Error(`CORS policy: origin ${origin} not allowed`));
     },
     credentials: true
 }));

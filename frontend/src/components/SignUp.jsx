@@ -49,7 +49,7 @@ const SignUp = ({ onSwitchMode, onSubmit }) => {
 
       setFormData(INITIAL_FORM)
 
-      // Hard redirect to ensure fresh state pickup
+
       window.location.href = '/'
     }
     catch (err) {
