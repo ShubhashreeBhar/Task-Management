@@ -8,11 +8,12 @@ const app= express ();
 const port=process.env.PORT || 4000;
 
 // CORS configuration
-const corsOrigin = process.env.CORS_ORIGIN || '*';
-app.use(cors({
-    origin: corsOrigin === '*' ? '*' : corsOrigin.split(',').map(o => o.trim()),
-    credentials: true
-}));
+const corsOrigin = process.env.CORS_ORIGIN;
+app.use(cors(
+    corsOrigin
+        ? { origin: corsOrigin.split(',').map(o => o.trim()), credentials: true }
+        : { origin: '*' }
+));
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
