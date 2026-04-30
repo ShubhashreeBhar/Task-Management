@@ -4,25 +4,24 @@ import {createTask,deleteTask, getTaskById,getTasks,updateTask} from '../control
 
 const taskRouter =express.Router();
 
-// Standard REST routes
+// Specific literal routes MUST come before /:id wildcard
+taskRouter.route('/gp')
+    .get(authmiddleware,getTasks)
+    .post(authmiddleware,createTask);
+
 taskRouter.route('/')
     .get(authmiddleware,getTasks)
     .post(authmiddleware,createTask);
+
+// Parameterized routes (order doesn't matter between these two)
+taskRouter.route('/:id/gp')
+    .get(authmiddleware,getTaskById)
+    .put(authmiddleware,updateTask)
+    .delete(authmiddleware,deleteTask);
 
 taskRouter.route('/:id')
     .get(authmiddleware,getTaskById)
     .put(authmiddleware,updateTask)
     .delete(authmiddleware,deleteTask);
-
-// Legacy /gp routes (kept for backwards compatibility)
-taskRouter.route('/gp')
-    .get(authmiddleware,getTasks)
-    .post(authmiddleware,createTask);
-
-taskRouter.route('/:id/gp')
-    .get(authmiddleware,getTaskById)
-    .put(authmiddleware,updateTask)
-    .delete(authmiddleware,deleteTask)
-
 
 export default taskRouter;
