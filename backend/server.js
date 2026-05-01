@@ -8,27 +8,18 @@ import taskRouter from "./routes/taskRoute.js";
 const app = express();
 const port = process.env.PORT || 5000;
 
+// CORS configuration
 const corsOptions = {
-    origin: function (origin, callback) {
-        const allowedOrigins = [
-            'https://task-management-phi-three.vercel.app',
-            process.env.CORS_ORIGIN, // Uses your Render dashboard setting
-            'http://localhost:5173',
-            'http://localhost:3000'
-        ].filter(Boolean); // Removes empty values
-
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: [
+        'https://task-management-phi-three.vercel.app',
+        'http://localhost:5173',
+        'http://localhost:3000'
+    ],
     credentials: true,
     optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
 
 // Middleware
 app.use(express.json());
@@ -47,4 +38,11 @@ app.get("/", (req, res) => {
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
+});
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err) => {
+    console.log('UNHANDLED REJECTION! 💥 Shutting down...');
+    console.log(err.name, err.message);
+    process.exit(1);
 });
