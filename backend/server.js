@@ -8,14 +8,27 @@ import taskRouter from "./routes/taskRoute.js";
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors()); // This allows EVERYTHING. No restrictions.
+const corsOptions = {
+    origin: function (origin, callback) {
+        const allowedOrigins = [
+            'https://task-management-phi-three.vercel.app',
+            process.env.CORS_ORIGIN, // Uses your Render dashboard setting
+            'http://localhost:5173',
+            'http://localhost:3000'
+        ].filter(Boolean); // Removes empty values
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    next();
-});
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Middleware
 app.use(express.json());
